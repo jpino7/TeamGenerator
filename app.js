@@ -11,100 +11,131 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+class Team {
+    constructor() {
+        this.teamSize = 0;
+        this.team = [];
+    }
+    start() {
+        if (this.teamSize === 0) {
+            this.managerPrompt()
+        } else {
+            this.addNewMember()
+        }
+    }
 
-// class Team {
-//     constructor() {
-//         this.teamSize = 0;
-//         this.team = [];
-//     }
-//     start() {
-//         if (this.teamSize === 0) {
-//             this.managerPrompt()
-//         } else {
-//             this.addNewMember()
+    managerPrompt() {
+        inquirer.prompt([{
+            type: "input",
+            name: "name",
+            message: "Manager's Name:"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Manager's ID:"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "Manager's Email Address:"
+
+        },
+        {
+            type: "input",
+            name: "officeNumber",
+            message: "Manager's Office Number:"
+        }
+        ]).then(val => {
+            const manager = new Manager(val.name, val.id, val.email, val.officeNumber);
+            this.teamSize += 1;
+            this.team.push(manager);
+            this.addNewMember()
+        });
+    }
+}
+
+// addNewMember() {
+//     inquirer.prompt([{
+//         type: "input",
+//         name: "type",
+//         message: "Would you like to add an Engineer or Intern? If neither type 'No'."
+//     },
+//     ]).then(val => {
+//         if (val.type === "Engineer") {
+//             this.engineerPrompt()
+//         } else if (val.type === "Intern") {
+//             this.internPrompt()
+//         } else if (val.type === "No") {
+
 //         }
-//     }
+//     })
 
-//     managerPrompt() {
-inquirer.prompt([{
-    type: "input",
-    name: "name",
-    message: "Manager's Name:"
-},
-{
-    type: "input",
-    name: "id",
-    message: "Manager's ID:"
-},
-{
-    type: "input",
-    name: "email",
-    message: "Manager's Email Address:"
-    
-},
-{
-    type: "input",
-    name: "number",
-    message: "Manager's Office Number:"
-}]).then(answers => {
-    console.log(answers);
-})
-//     }
 // }
 
+engineerPrompt() {
+    inquirer.prompt([{
+        type: "input",
+        name: "name",
+        message: "Engineer's Name:"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Manager's ID:"
+    },
+    {
 
-inquirer.prompt([{
-    type: "input",
-    name: "name",
-    message: "Engineer's Name:"
-},
-{
-    type: "input",
-    name: "id",
-    message: "Manager's ID:"
-},
-{
+        type: "input",
+        name: "email",
+        message: "Engineer's Email Address:"
+    },
+    {
+        type: "input",
+        name: "github",
+        message: "Engineer's GitHub URL:"
+    }]).then(val => {
+        const engineer = new Engineer(val.name, val.id, val.email, val.github);
+        this.teamSize += 1;
+        this.team.push(engineer);
+        this.addNewMember()
+    });
+}
 
-    type: "input",
-    name: "email",
-    message: "Engineer's Email Address:"
-},
-{
-    type: "input",
-    name: "github",
-    message: "Engineer's GitHub URL:"
-}]).then(answers => {
-    console.log(answers);
-})
+internPrompt() {
+    inquirer.prompt([{
+        type: "input",
+        name: "name",
+        message: "Intern's Name:"
+    },
+    {
+        type: "input",
+        name: "id",
+        message: "Intern's ID:"
+    },
+    {
 
-inquirer.prompt([{
-    type: "input",
-    name: "name",
-    message: "Intern's Name:"
-},
-{
-    type: "input",
-    name: "id",
-    message: "Intern's ID:"
-},
-{
-
-    type: "input",
-    name: "email",
-    message: "Intern's Email Address:"
-},
-{
-    type: "input",
-    name: "school",
-    message: "Intern's School:"
-}]).then(answers => {
-    console.log(answers);
-})
+        type: "input",
+        name: "email",
+        message: "Intern's Email Address:"
+    },
+    {
+        type: "input",
+        name: "school",
+        message: "Intern's School:"
+    }]).then(val => {
+        const intern = new Intern(val.name, val.id, val.email, val.school);
+        this.teamSize += 1;
+        this.team.push(intern);
+        this.addNewMember()
+    });
+}
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including template divs for each employee!
+
+
+
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
@@ -112,9 +143,7 @@ inquirer.prompt([{
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
+
 
 // HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
 // and Intern classes should all extend from a class named Employee; see the directions
