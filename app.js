@@ -28,34 +28,83 @@ const render = require("./lib/htmlRenderer");
 //     }
 
 //     managerPrompt() {
-        inquirer.prompt([{
-            type: "input",
-            name: "name",
-            message: "Manager's Name:"
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "Manager's Email Address:"
-        },
-        {
-            type: "input",
-            name: "id",
-            message: "Manager's ID:"
-        },
-        {
-            type: "input",
-            name: "number",
-            message: "Manager's Office Number:"
-        }]).then(answers => {
-            console.log(answers);
-        })
+inquirer.prompt([{
+    type: "input",
+    name: "name",
+    message: "Manager's Name:"
+},
+{
+    type: "input",
+    name: "id",
+    message: "Manager's ID:"
+},
+{
+    type: "input",
+    name: "email",
+    message: "Manager's Email Address:"
+    
+},
+{
+    type: "input",
+    name: "number",
+    message: "Manager's Office Number:"
+}]).then(answers => {
+    console.log(answers);
+})
 //     }
 // }
 
+
+inquirer.prompt([{
+    type: "input",
+    name: "name",
+    message: "Engineer's Name:"
+},
+{
+    type: "input",
+    name: "id",
+    message: "Manager's ID:"
+},
+{
+
+    type: "input",
+    name: "email",
+    message: "Engineer's Email Address:"
+},
+{
+    type: "input",
+    name: "github",
+    message: "Engineer's GitHub URL:"
+}]).then(answers => {
+    console.log(answers);
+})
+
+inquirer.prompt([{
+    type: "input",
+    name: "name",
+    message: "Intern's Name:"
+},
+{
+    type: "input",
+    name: "id",
+    message: "Intern's ID:"
+},
+{
+
+    type: "input",
+    name: "email",
+    message: "Intern's Email Address:"
+},
+{
+    type: "input",
+    name: "school",
+    message: "Intern's School:"
+}]).then(answers => {
+    console.log(answers);
+})
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+// generate and return a block of HTML including template divs for each employee!
 
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
