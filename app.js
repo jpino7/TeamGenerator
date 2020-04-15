@@ -52,91 +52,96 @@ class Team {
             this.team.push(manager);
             this.addNewMember()
         });
-    }
-}
+    };
 
-// addNewMember() {
-//     inquirer.prompt([{
-//         type: "input",
-//         name: "type",
-//         message: "Would you like to add an Engineer or Intern? If neither type 'No'."
-//     },
-//     ]).then(val => {
-//         if (val.type === "Engineer") {
-//             this.engineerPrompt()
-//         } else if (val.type === "Intern") {
-//             this.internPrompt()
-//         } else if (val.type === "No") {
+    addNewMember() {
+        inquirer.prompt([{
+            type: "input",
+            name: "type",
+            message: "Would you like to add an Engineer or Intern? If neither type 'No'."
+        },
+        ]).then(val => {
+            if (val.type === "Engineer") {
+                this.engineerPrompt()
+            } else if (val.type === "Intern") {
+                this.internPrompt()
+            } else if (val.type === "No") {
+                this.renderList()
+            } else {
+                this.addNewMember()
+            }
+        });
+    };
 
-//         }
-//     })
+    engineerPrompt() {
+        inquirer.prompt([{
+            type: "input",
+            name: "name",
+            message: "Engineer's Name:"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Manager's ID:"
+        },
+        {
 
-// }
+            type: "input",
+            name: "email",
+            message: "Engineer's Email Address:"
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "Engineer's GitHub URL:"
+        }]).then(val => {
+            const engineer = new Engineer(val.name, val.id, val.email, val.github);
+            this.teamSize += 1;
+            this.team.push(engineer);
+            this.addNewMember()
+        });
+    };
 
-engineerPrompt() {
-    inquirer.prompt([{
-        type: "input",
-        name: "name",
-        message: "Engineer's Name:"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "Manager's ID:"
-    },
-    {
+    internPrompt() {
+        inquirer.prompt([{
+            type: "input",
+            name: "name",
+            message: "Intern's Name:"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "Intern's ID:"
+        },
+        {
 
-        type: "input",
-        name: "email",
-        message: "Engineer's Email Address:"
-    },
-    {
-        type: "input",
-        name: "github",
-        message: "Engineer's GitHub URL:"
-    }]).then(val => {
-        const engineer = new Engineer(val.name, val.id, val.email, val.github);
-        this.teamSize += 1;
-        this.team.push(engineer);
-        this.addNewMember()
-    });
-}
-
-internPrompt() {
-    inquirer.prompt([{
-        type: "input",
-        name: "name",
-        message: "Intern's Name:"
-    },
-    {
-        type: "input",
-        name: "id",
-        message: "Intern's ID:"
-    },
-    {
-
-        type: "input",
-        name: "email",
-        message: "Intern's Email Address:"
-    },
-    {
-        type: "input",
-        name: "school",
-        message: "Intern's School:"
-    }]).then(val => {
-        const intern = new Intern(val.name, val.id, val.email, val.school);
-        this.teamSize += 1;
-        this.team.push(intern);
-        this.addNewMember()
-    });
-}
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including template divs for each employee!
+            type: "input",
+            name: "email",
+            message: "Intern's Email Address:"
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "Intern's School:"
+        }]).then(val => {
+            const intern = new Intern(val.name, val.id, val.email, val.school);
+            this.teamSize += 1;
+            this.team.push(intern);
+            this.addNewMember()
+        });
+    };
 
 
+    renderList() {
+        fs.writeFile(outputPath, render(this.team), function (err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log("Success!")
+        });
+    };
 
-
+};
 // After you have your html, you're now ready to create an HTML file using the HTML
 // returned from the `render` function. Now write it to a file named `team.html` in the
 // `output` folder. You can use the variable `outputPath` above target this location.
