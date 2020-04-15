@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-
+// Building Team 
 class Team {
     constructor() {
         this.teamSize = 0;
@@ -24,6 +24,7 @@ class Team {
         }
     }
 
+    // Inquirer Manager Prompt
     managerPrompt() {
         inquirer.prompt([{
             type: "input",
@@ -54,6 +55,7 @@ class Team {
         });
     };
 
+    // Inquirer Add New Member to Team Prompt
     addNewMember() {
         inquirer.prompt([{
             type: "input",
@@ -73,6 +75,7 @@ class Team {
         });
     };
 
+    // Inquirer Engineer Prompt
     engineerPrompt() {
         inquirer.prompt([{
             type: "input",
@@ -102,6 +105,7 @@ class Team {
         });
     };
 
+    // Inquirer Intern Prompt
     internPrompt() {
         inquirer.prompt([{
             type: "input",
@@ -131,7 +135,7 @@ class Team {
         });
     };
 
-
+    // Render Function to writeFile
     renderList() {
         fs.writeFile(outputPath, render(this.team), function (err) {
             if (err) {
