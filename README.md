@@ -19,6 +19,7 @@ This project was to build a software engineering team generator command line app
 Run npm install in the appropriate directory, then input node app.js
 
 ## Usage
+The application prompts the user for information about the team manager and then information about the team members such as engineer and intern. When user has completed building the team, the app will create an HTML file that displays a nicely formatted team roster based on the information provided by the user.
 
 ## License
 N/A
